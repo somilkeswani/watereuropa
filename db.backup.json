@@ -9,7 +9,7 @@
     "footerCreditText": "Designed by",
     "footerCreditAuthor": "Codem",
     "footerCreditUrl": "https://portfolio-future-nine.vercel.app",
-    "footerTagline": "."
+    "footerTagline": "Designed with • for a better tomorrow"
   },
   "navigation": [
     {
@@ -138,7 +138,7 @@
       {
         "id": "slide3",
         "badge": "Slide 03 • The Area",
-        "caption": "The streets of Kashmore — a community in need of clean, accessible water.",
+        "caption": "The streets of Kashmore: a community in need of clean, accessible water.",
         "imageUrl": "./Street.jpeg",
         "recommendedSize": "1200 x 800 px (3:2 ratio)"
       }
@@ -177,18 +177,20 @@
     "p1": "Kashmore faces serious challenges with access to safe drinking water. Groundwater in the area is highly saline, while chemical dumping has also contributed to concerns about local water quality.",
     "p2": "For many families, accessing usable drinking water can require traveling 20km to the nearest water source and transporting water back home or purchasing expensive branded water. This makes access difficult, especially for rural communities with limited infrastructure and affordability.",
     "stat1": {
+      "enabled": true,
       "label": "Travel for many families",
       "value": "20km",
       "sub": "To the nearest water source"
     },
     "stat2": {
+      "enabled": true,
       "label": "Water Europa, as low as",
       "value": "$0.07/gallon",
       "sub": "Affordable, purified drinking water"
     },
     "image": {
       "url": "./drybuildings.jpeg",
-      "caption": "The arid landscape of Kashmore — a region where accessing safe water is a daily struggle",
+      "caption": "The arid landscape of Kashmore: a region where accessing safe water is a daily struggle",
       "tag": "Kashmore, Sindh",
       "recommendedSize": "1000 x 800 px (5:4 ratio)"
     }
@@ -265,6 +267,7 @@
         }
       ],
       "antiscalantNote": "An automatic dosing pump injects antiscalant into the system to prevent mineral deposits from accumulating on the RO membranes, helping maintain filtration efficiency.",
+      "antiscalantNoteEnabled": true,
       "waterQuality": {
         "title": "Water quality (TDS)",
         "desc": "Our plant uses groundwater with an initial Total Dissolved Solids (TDS) level of approximately 2200 ppm. The RO membrane rejects approximately 95 to 97% of the dissolved salts, lowering the TDS level to around 120 to 130 ppm, depending on the season. During June and July, the treated water's TDS level can fall to approximately 60 to 70 ppm.",
@@ -295,7 +298,7 @@
     "gallery": [
       {
         "title": "The RO Plant",
-        "caption": "Inside the Kashmore RO facility — the machinery that makes clean water possible",
+        "caption": "Inside the Kashmore RO facility: the machinery that makes clean water possible",
         "imageUrl": "./machinery.jpeg",
         "recommendedSize": "600 x 400 px (3:2 ratio)"
       },
@@ -307,7 +310,7 @@
       },
       {
         "title": "Kashmore Area",
-        "caption": "The streets of Kashmore — the community Water Europa serves",
+        "caption": "The streets of Kashmore: the community Water Europa serves",
         "imageUrl": "./Street2.jpeg",
         "recommendedSize": "600 x 400 px (3:2 ratio)"
       }
