@@ -78,7 +78,7 @@ async function loadAndHydrateCMS() {
         footerCredit.innerHTML = `${text} <a id="footer-credit-link" href="${url}" target="_blank" rel="noopener noreferrer" class="text-secondary-container hover:underline font-medium">${author}</a>`;
       }
       const footerTagline = document.getElementById('footer-tagline');
-      if (footerTagline && data.branding.footerTagline) {
+      if (footerTagline && data.branding.footerTagline != null) {
         footerTagline.textContent = data.branding.footerTagline;
       }
     }
@@ -110,9 +110,52 @@ async function loadAndHydrateCMS() {
     hydrateParallaxBackgrounds(data.parallaxBackgrounds);
     hydrateDonation(data.donation);
 
+    // Handle enabled/disabled toggleable blocks
+    hydrateCrisisBlocks(data.crisis);
+    hydrateAntiscalantNote(data.kashmore);
+
   } catch (err) {
     console.warn('Could not hydrate db.json; using built-in HTML content.', err);
   }
+}
+
+// Toggle crisis stat blocks based on enabled flags
+function hydrateCrisisBlocks(crisis) {
+  if (!crisis) return;
+  const stat1Wrap = document.getElementById('crisis-stat1-wrap');
+  const stat2Wrap = document.getElementById('crisis-stat2-wrap');
+  if (stat1Wrap) stat1Wrap.style.display = crisis.stat1?.enabled === false ? 'none' : '';
+  if (stat2Wrap) stat2Wrap.style.display = crisis.stat2?.enabled === false ? 'none' : '';
+
+  // Update text if present
+  const s1label = document.getElementById('crisis-stat1-label');
+  const s1value = document.getElementById('crisis-stat1-value');
+  const s1sub   = document.getElementById('crisis-stat1-sub');
+  const s2label = document.getElementById('crisis-stat2-label');
+  const s2value = document.getElementById('crisis-stat2-value');
+  const s2sub   = document.getElementById('crisis-stat2-sub');
+  if (crisis.stat1) {
+    if (s1label && crisis.stat1.label) s1label.textContent = crisis.stat1.label;
+    if (s1value && crisis.stat1.value) s1value.textContent = crisis.stat1.value;
+    if (s1sub   && crisis.stat1.sub)   s1sub.textContent   = crisis.stat1.sub;
+  }
+  if (crisis.stat2) {
+    if (s2label && crisis.stat2.label) s2label.textContent = crisis.stat2.label;
+    if (s2value && crisis.stat2.value) s2value.textContent = crisis.stat2.value;
+    if (s2sub   && crisis.stat2.sub)   s2sub.textContent   = crisis.stat2.sub;
+  }
+}
+
+// Toggle antiscalant note block based on enabled flag
+function hydrateAntiscalantNote(kashmore) {
+  if (!kashmore) return;
+  const wrap = document.getElementById('antiscalant-note-wrap');
+  if (!wrap) return;
+  const tp = kashmore.treatmentProcess;
+  if (!tp) return;
+  wrap.style.display = tp.antiscalantNoteEnabled === false ? 'none' : '';
+  const noteText = wrap.querySelector('p');
+  if (noteText && tp.antiscalantNote) noteText.innerHTML = tp.antiscalantNote;
 }
 
 // Hydrate Floating Widget (WhatsApp / Messenger / Instagram)
@@ -234,16 +277,15 @@ function hydrateMedia(data) {
     crisisImg.alt = crisis.caption || crisisImg.alt;
   }
 
-  const grid = document.getElementById('kashmore-gallery');
+  const track = document.getElementById('gallery-track') || document.getElementById('kashmore-gallery');
   const gallery = data.kashmore && data.kashmore.gallery;
-  if (grid && Array.isArray(gallery) && gallery.length) {
-    grid.innerHTML = '';
-    gallery.forEach(item => {
-      if (!item || !item.imageUrl) return;
+  if (track && Array.isArray(gallery) && gallery.length) {
+    track.innerHTML = '';
+    const renderCard = (item, isClone = false) => {
       const card = document.createElement('div');
-      card.className = 'rounded-2xl overflow-hidden border border-outline-variant bg-white';
+      card.className = 'gallery-card' + (isClone ? ' gallery-clone' : '');
       const img = document.createElement('img');
-      img.src = item.imageUrl;
+      img.src = item.imageUrl || '';
       img.alt = item.title || 'Water Europa';
       img.className = 'w-full h-36 object-cover';
       const body = document.createElement('div');
@@ -256,7 +298,19 @@ function hydrateMedia(data) {
       cap.textContent = item.caption || '';
       body.append(title, cap);
       card.append(img, body);
-      grid.appendChild(card);
+      return card;
+    };
+
+    // Primary items
+    gallery.forEach(item => {
+      if (!item || !item.imageUrl) return;
+      track.appendChild(renderCard(item, false));
+    });
+
+    // Duplicate items for infinite marquee on desktop
+    gallery.forEach(item => {
+      if (!item || !item.imageUrl) return;
+      track.appendChild(renderCard(item, true));
     });
   }
 }

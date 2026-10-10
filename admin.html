@@ -734,20 +734,34 @@
               <textarea id="crisis-p2" class="admin-input" rows="3"></textarea>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="p-3 bg-red-50/50 rounded-xl border border-red-200">
-                <label class="admin-label text-red-700">Stat 1 Value</label>
+              <div class="p-3.5 bg-red-50/50 rounded-xl border border-red-200">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="admin-label text-red-700 font-bold mb-0">Stat 1 (20km Travel)</span>
+                  <label class="flex items-center gap-1.5 text-xs font-bold text-red-700 cursor-pointer">
+                    <input type="checkbox" id="crisis-stat1-enabled" class="rounded text-red-600" />
+                    <span>Enabled</span>
+                  </label>
+                </div>
+                <label class="admin-label text-red-700">Value</label>
                 <input type="text" id="crisis-stat1-value" class="admin-input mb-2" />
-                <label class="admin-label text-red-700">Stat 1 Label</label>
+                <label class="admin-label text-red-700">Label</label>
                 <input type="text" id="crisis-stat1-label" class="admin-input mb-2" />
-                <label class="admin-label text-red-700">Stat 1 Subtitle</label>
+                <label class="admin-label text-red-700">Subtitle</label>
                 <input type="text" id="crisis-stat1-sub" class="admin-input" />
               </div>
-              <div class="p-3 bg-secondary/5 rounded-xl border border-secondary/20">
-                <label class="admin-label text-secondary">Stat 2 Value</label>
+              <div class="p-3.5 bg-secondary/5 rounded-xl border border-secondary/20">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="admin-label text-secondary font-bold mb-0">Stat 2 ($0.07/gallon)</span>
+                  <label class="flex items-center gap-1.5 text-xs font-bold text-secondary cursor-pointer">
+                    <input type="checkbox" id="crisis-stat2-enabled" class="rounded text-secondary" />
+                    <span>Enabled</span>
+                  </label>
+                </div>
+                <label class="admin-label text-secondary">Value</label>
                 <input type="text" id="crisis-stat2-value" class="admin-input mb-2" />
-                <label class="admin-label text-secondary">Stat 2 Label</label>
+                <label class="admin-label text-secondary">Label</label>
                 <input type="text" id="crisis-stat2-label" class="admin-input mb-2" />
-                <label class="admin-label text-secondary">Stat 2 Subtitle</label>
+                <label class="admin-label text-secondary">Subtitle</label>
                 <input type="text" id="crisis-stat2-sub" class="admin-input" />
               </div>
             </div>
@@ -881,8 +895,14 @@
             <div id="treatment-steps-container" class="space-y-3">
               <!-- Rendered by admin.js -->
             </div>
-            <div>
-              <label class="admin-label">Antiscalant Dosing Note</label>
+            <div class="p-3.5 bg-secondary/5 rounded-xl border border-secondary/20 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="admin-label text-secondary font-bold mb-0">Antiscalant Dosing Note Block</span>
+                <label class="flex items-center gap-1.5 text-xs font-bold text-secondary cursor-pointer">
+                  <input type="checkbox" id="treatment-antiscalant-enabled" class="rounded text-secondary" />
+                  <span>Enabled</span>
+                </label>
+              </div>
               <textarea id="treatment-antiscalant" class="admin-input" rows="2"></textarea>
             </div>
           </div>

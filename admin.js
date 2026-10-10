@@ -182,6 +182,9 @@ async function loadDbFromGitHub() {
 
 // Save & Push to GitHub with automatic backup
 async function pushChangesToGitHub() {
+  collectAllInputs();
+  saveDraft();
+
   const btn = document.getElementById('btn-push-changes');
   if (btn) {
     btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">sync</span><span>Pushing…</span>';
@@ -715,7 +718,7 @@ function renderBrandingPanel() {
   setVal('branding-footerCreditText', b.footerCreditText || 'Designed by');
   setVal('branding-footerCreditAuthor', b.footerCreditAuthor || 'Codem');
   setVal('branding-footerCreditUrl', b.footerCreditUrl || 'https://portfolio-future-nine.vercel.app');
-  setVal('branding-footerTagline', b.footerTagline || 'Designed with 💧 for a better tomorrow');
+  setVal('branding-footerTagline', b.footerTagline != null ? b.footerTagline : 'Designed with 💧 for a better tomorrow');
   updateImagePreview('preview-logo', b.logoUrl);
 }
 
@@ -928,10 +931,14 @@ function renderCrisisPanel() {
   setVal('crisis-p1', cr.p1 || '');
   setVal('crisis-p2', cr.p2 || '');
 
+  const s1cb = document.getElementById('crisis-stat1-enabled');
+  if (s1cb) s1cb.checked = cr.stat1?.enabled !== false;
   setVal('crisis-stat1-value', cr.stat1?.value || '');
   setVal('crisis-stat1-label', cr.stat1?.label || '');
   setVal('crisis-stat1-sub', cr.stat1?.sub || '');
 
+  const s2cb = document.getElementById('crisis-stat2-enabled');
+  if (s2cb) s2cb.checked = cr.stat2?.enabled !== false;
   setVal('crisis-stat2-value', cr.stat2?.value || '');
   setVal('crisis-stat2-label', cr.stat2?.label || '');
   setVal('crisis-stat2-sub', cr.stat2?.sub || '');
@@ -1034,6 +1041,8 @@ function renderKashmorePanel() {
   setVal('kashmore-p2', k.p2 || '');
 
   const tp = k.treatmentProcess || {};
+  const antcb = document.getElementById('treatment-antiscalant-enabled');
+  if (antcb) antcb.checked = tp.antiscalantNoteEnabled !== false;
   setVal('treatment-antiscalant', tp.antiscalantNote || '');
 
   // Render Steps
@@ -1349,11 +1358,13 @@ function collectAllInputs() {
   draftData.crisis.p2 = getVal('crisis-p2');
 
   draftData.crisis.stat1 = draftData.crisis.stat1 || {};
+  draftData.crisis.stat1.enabled = document.getElementById('crisis-stat1-enabled')?.checked !== false;
   draftData.crisis.stat1.value = getVal('crisis-stat1-value');
   draftData.crisis.stat1.label = getVal('crisis-stat1-label');
   draftData.crisis.stat1.sub = getVal('crisis-stat1-sub');
 
   draftData.crisis.stat2 = draftData.crisis.stat2 || {};
+  draftData.crisis.stat2.enabled = document.getElementById('crisis-stat2-enabled')?.checked !== false;
   draftData.crisis.stat2.value = getVal('crisis-stat2-value');
   draftData.crisis.stat2.label = getVal('crisis-stat2-label');
   draftData.crisis.stat2.sub = getVal('crisis-stat2-sub');
@@ -1397,6 +1408,7 @@ function collectAllInputs() {
 
   draftData.kashmore.treatmentProcess = draftData.kashmore.treatmentProcess || {};
   draftData.kashmore.treatmentProcess.antiscalantNote = getVal('treatment-antiscalant');
+  draftData.kashmore.treatmentProcess.antiscalantNoteEnabled = document.getElementById('treatment-antiscalant-enabled')?.checked !== false;
 
   if (Array.isArray(draftData.kashmore.treatmentProcess.steps)) {
     draftData.kashmore.treatmentProcess.steps.forEach((s, idx) => {
