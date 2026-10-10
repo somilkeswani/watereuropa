@@ -672,15 +672,27 @@
     <div class="p-4 rounded-2xl border border-secondary/30 bg-secondary/5 text-center"><span class="text-[10px] font-mono uppercase text-secondary block mb-1">June &amp; July</span><span class="font-serif text-xl font-bold text-secondary">60 to 70 ppm</span></div>
   </div>
 </div>
-<!-- [CONFIRMED] real client photos. JS will hydrate from db.json gallery array -->
-<div id="kashmore-gallery" data-status="confirmed" class="pt-6 border-t border-outline-variant">
-  <!-- Mobile: grid stack. Desktop: auto-scrolling marquee (CSS animation, JS duplicates items) -->
-  <div class="kashmore-gallery-inner">
-    <!-- Fallback cards, JS replaces with db.json data -->
-    <div class="gallery-track" id="gallery-track">
-      <div class="gallery-card"><img src="./machinery.jpeg" alt="Inside the Kashmore RO facility" class="w-full h-36 object-cover" /><div class="p-3 text-xs"><span class="font-bold text-primary block">The RO Plant</span><span class="text-outline text-[11px]">Inside the Kashmore RO facility, the machinery that makes clean water possible</span></div></div>
-      <div class="gallery-card"><img src="./with people.jpeg" alt="Families in Kashmore who depend on clean water" class="w-full h-36 object-cover" /><div class="p-3 text-xs"><span class="font-bold text-primary block">The Community</span><span class="text-outline text-[11px]">Families in Kashmore who depend on clean water every day</span></div></div>
-      <div class="gallery-card"><img src="./Street2.jpeg" alt="The streets of Kashmore" class="w-full h-36 object-cover" /><div class="p-3 text-xs"><span class="font-bold text-primary block">Kashmore Area</span><span class="text-outline text-[11px]">The streets of Kashmore, the community Water Europa serves</span></div></div>
+<!-- [CONFIRMED] real client photos. JS hydrates from db.json gallery array -->
+<div id="kashmore-gallery" data-status="confirmed" class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-outline-variant">
+  <div class="rounded-2xl overflow-hidden border border-outline-variant bg-white">
+    <img src="./machinery.jpeg" alt="Inside the Kashmore RO facility" class="w-full h-36 object-cover" />
+    <div class="p-3 text-xs">
+      <span class="font-bold text-primary block">The RO Plant</span>
+      <span class="text-outline text-[11px]">Inside the Kashmore RO facility: the machinery that makes clean water possible</span>
+    </div>
+  </div>
+  <div class="rounded-2xl overflow-hidden border border-outline-variant bg-white">
+    <img src="./with people.jpeg" alt="Families in Kashmore who depend on clean water" class="w-full h-36 object-cover" />
+    <div class="p-3 text-xs">
+      <span class="font-bold text-primary block">The Community</span>
+      <span class="text-outline text-[11px]">Families in Kashmore who depend on clean water every day</span>
+    </div>
+  </div>
+  <div class="rounded-2xl overflow-hidden border border-outline-variant bg-white">
+    <img src="./Street2.jpeg" alt="The streets of Kashmore" class="w-full h-36 object-cover" />
+    <div class="p-3 text-xs">
+      <span class="font-bold text-primary block">Kashmore Area</span>
+      <span class="text-outline text-[11px]">The streets of Kashmore: the community Water Europa serves</span>
     </div>
   </div>
 </div>

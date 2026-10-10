@@ -277,13 +277,14 @@ function hydrateMedia(data) {
     crisisImg.alt = crisis.caption || crisisImg.alt;
   }
 
-  const track = document.getElementById('gallery-track') || document.getElementById('kashmore-gallery');
+  const galleryEl = document.getElementById('kashmore-gallery');
   const gallery = data.kashmore && data.kashmore.gallery;
-  if (track && Array.isArray(gallery) && gallery.length) {
-    track.innerHTML = '';
-    const renderCard = (item, isClone = false) => {
+  if (galleryEl && Array.isArray(gallery) && gallery.length) {
+    galleryEl.innerHTML = '';
+
+    const createCard = (item, isClone = false, isMarquee = false) => {
       const card = document.createElement('div');
-      card.className = 'gallery-card' + (isClone ? ' gallery-clone' : '');
+      card.className = (isMarquee ? 'gallery-marquee-card ' : '') + 'rounded-2xl overflow-hidden border border-outline-variant bg-white shadow-xs' + (isClone ? ' gallery-clone' : '');
       const img = document.createElement('img');
       img.src = item.imageUrl || '';
       img.alt = item.title || 'Water Europa';
@@ -301,17 +302,33 @@ function hydrateMedia(data) {
       return card;
     };
 
-    // Primary items
-    gallery.forEach(item => {
-      if (!item || !item.imageUrl) return;
-      track.appendChild(renderCard(item, false));
-    });
+    if (gallery.length <= 3) {
+      // 3 or fewer items: standard 3-column grid in nice boxes, NO duplicates
+      galleryEl.className = 'grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-outline-variant';
+      gallery.forEach(item => {
+        if (!item || !item.imageUrl) return;
+        galleryEl.appendChild(createCard(item, false, false));
+      });
+    } else {
+      // More than 3 items: wrap around with desktop horizontal scrolling animation
+      galleryEl.className = 'kashmore-gallery-marquee pt-6 border-t border-outline-variant overflow-hidden';
+      const track = document.createElement('div');
+      track.className = 'kashmore-marquee-track';
 
-    // Duplicate items for infinite marquee on desktop
-    gallery.forEach(item => {
-      if (!item || !item.imageUrl) return;
-      track.appendChild(renderCard(item, true));
-    });
+      // Primary items
+      gallery.forEach(item => {
+        if (!item || !item.imageUrl) return;
+        track.appendChild(createCard(item, false, true));
+      });
+
+      // Duplicates for desktop infinite loop
+      gallery.forEach(item => {
+        if (!item || !item.imageUrl) return;
+        track.appendChild(createCard(item, true, true));
+      });
+
+      galleryEl.appendChild(track);
+    }
   }
 }
 

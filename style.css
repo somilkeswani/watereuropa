@@ -799,72 +799,53 @@ h1, h2, h3, h4, .font-serif {
 }
 
 /* ----------------------------------------
-   KASHMORE TREATMENT GALLERY - AUTO SCROLL MARQUEE
-   Desktop: continuous slow wrapping loop when more images are added.
-   Mobile: neat stacking grid without overflow.
+   KASHMORE TREATMENT GALLERY
+   Default (<= 3 items): Clean 3-box grid on desktop, single column on mobile.
+   Extended (> 3 items): Desktop auto-scrolling horizontal marquee.
    ---------------------------------------- */
-#kashmore-gallery {
+.kashmore-gallery-marquee {
+  width: 100%;
   position: relative;
-  width: 100%;
   overflow: hidden;
-}
-
-.gallery-track {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  width: 100%;
-}
-
-@media (min-width: 520px) and (max-width: 767px) {
-  .gallery-track {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.gallery-card {
-  background: #ffffff;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(15, 41, 55, 0.04);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.gallery-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px rgba(15, 41, 55, 0.1);
-}
-
-.gallery-clone {
-  display: none !important;
 }
 
 @media (min-width: 768px) {
-  #kashmore-gallery {
+  .kashmore-gallery-marquee {
     mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
   }
 
-  .gallery-track {
+  .kashmore-marquee-track {
     display: flex !important;
     width: max-content !important;
-    gap: 1.25rem !important;
+    gap: 1.5rem !important;
     animation: galleryMarquee 38s linear infinite;
   }
 
-  .gallery-track:hover {
+  .kashmore-marquee-track:hover {
     animation-play-state: paused;
   }
 
-  .gallery-card {
-    flex: 0 0 310px;
-    width: 310px;
+  .gallery-marquee-card {
+    flex: 0 0 300px;
+    width: 300px;
   }
 
-  .gallery-clone {
+  .gallery-marquee-card.gallery-clone {
     display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .kashmore-marquee-track {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .gallery-marquee-card.gallery-clone {
+    display: none !important;
   }
 }
 
@@ -873,7 +854,8 @@ h1, h2, h3, h4, .font-serif {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-50% - 0.625rem));
+    transform: translateX(calc(-50% - 0.75rem));
   }
 }
+
 
